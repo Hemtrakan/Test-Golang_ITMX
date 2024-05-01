@@ -1,0 +1,7 @@
+app:
+  name: "NationalITMXTestGolang"
+  port: 8080
+
+database:
+  db:
+    servername: "NationalITMX"
