@@ -1,11 +1,11 @@
-package access
+package repository
 
 import (
 	"Test-Golang-ITMX/model"
 	"gorm.io/gorm"
 )
 
-type CustomersAccessInterface interface {
+type CustomersRepositoryInterface interface {
 	GetById(id int) (res model.Customers, Error error)
 	GetAll() (res []model.Customers, Error error)
 	Create(req model.CustomersRequest) (res model.Customers, Error error)
@@ -13,12 +13,12 @@ type CustomersAccessInterface interface {
 	Delete(id int) (Error error)
 }
 
-type Access struct {
+type Repository struct {
 	db *gorm.DB
 }
 
-func CustomersAccess(db *gorm.DB) CustomersAccessInterface {
-	return Access{
+func NewCustomersRepository(db *gorm.DB) CustomersRepositoryInterface {
+	return Repository{
 		db: db,
 	}
 }

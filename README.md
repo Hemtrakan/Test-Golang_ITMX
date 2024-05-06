@@ -19,6 +19,11 @@ Main Framework
  go run main.go
 ```
 
+### How To Run UnitTest Service 
+```
+ go test ./service -cover
+```
+
 ### script to initially create some customer data in the database.
 > INSERT INTO customers (name, age) VALUES ('Letter', 25) , ('Mocha',26) , ('Moochi',30);
 

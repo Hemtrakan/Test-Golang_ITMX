@@ -1,8 +1,8 @@
 package service
 
 import (
-	"Test-Golang-ITMX/access"
 	"Test-Golang-ITMX/model"
+	"Test-Golang-ITMX/repository"
 )
 
 type CustomersServiceInterface interface {
@@ -14,11 +14,11 @@ type CustomersServiceInterface interface {
 }
 
 type Service struct {
-	access access.CustomersAccessInterface
+	repository repository.CustomersRepositoryInterface
 }
 
-func CustomersService(access access.CustomersAccessInterface) CustomersServiceInterface {
+func NewCustomersService(repository repository.CustomersRepositoryInterface) CustomersServiceInterface {
 	return Service{
-		access: access,
+		repository: repository,
 	}
 }

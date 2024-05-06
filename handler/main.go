@@ -1,16 +1,16 @@
 package handler
 
 import (
-	"Test-Golang-ITMX/access"
+	"Test-Golang-ITMX/repository"
 	"Test-Golang-ITMX/service"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
 
 func APICustomersHandler(c fiber.Router, db *gorm.DB) {
-	customersAccess := access.CustomersAccess(db)
-	customersService := service.CustomersService(customersAccess)
-	customersHandler := CustomersHandler(customersService)
+	customersRepository := repository.NewCustomersRepository(db)
+	customersService := service.NewCustomersService(customersRepository)
+	customersHandler := NewCustomersHandler(customersService)
 
 	c.Post("/customers", customersHandler.CreateCustomers)
 	c.Put("/customers/:id", customersHandler.UpdateCustomers)
@@ -31,7 +31,7 @@ type handler struct {
 	service service.CustomersServiceInterface
 }
 
-func CustomersHandler(service service.CustomersServiceInterface) CustomersHandlerInterface {
+func NewCustomersHandler(service service.CustomersServiceInterface) CustomersHandlerInterface {
 	return handler{
 		service: service,
 	}

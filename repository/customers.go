@@ -1,4 +1,4 @@
-package access
+package repository
 
 import (
 	"Test-Golang-ITMX/model"
@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func (a Access) GetById(id int) (res model.Customers, Error error) {
+func (a Repository) GetById(id int) (res model.Customers, Error error) {
 	Error = a.db.Where("id = ?", id).First(&res).Error
 	if Error != nil {
 		if !errors.Is(Error, gorm.ErrRecordNotFound) {
@@ -20,12 +20,12 @@ func (a Access) GetById(id int) (res model.Customers, Error error) {
 	return
 }
 
-func (a Access) GetAll() (res []model.Customers, Error error) {
+func (a Repository) GetAll() (res []model.Customers, Error error) {
 	Error = a.db.Find(&res).Error
 	return
 }
 
-func (a Access) Create(req model.CustomersRequest) (res model.Customers, Error error) {
+func (a Repository) Create(req model.CustomersRequest) (res model.Customers, Error error) {
 	res = model.Customers{
 		Name: req.Name,
 		Age:  req.Age,
@@ -41,7 +41,7 @@ func (a Access) Create(req model.CustomersRequest) (res model.Customers, Error e
 	return
 }
 
-func (a Access) Update(id int, req model.CustomersRequest) (res model.Customers, Error error) {
+func (a Repository) Update(id int, req model.CustomersRequest) (res model.Customers, Error error) {
 	res = model.Customers{
 		Id:   id,
 		Name: req.Name,
@@ -59,7 +59,7 @@ func (a Access) Update(id int, req model.CustomersRequest) (res model.Customers,
 	return
 }
 
-func (a Access) Delete(id int) (Error error) {
+func (a Repository) Delete(id int) (Error error) {
 	Error = a.db.Where("id = ? ", id).Delete(&model.Customers{}).Error
 	if Error != nil {
 		return
